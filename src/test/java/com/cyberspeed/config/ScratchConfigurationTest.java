@@ -1,6 +1,8 @@
 package com.cyberspeed.config;
 
 import com.cyberspeed.config.symbols.Symbol;
+import com.cyberspeed.utils.JsonConvertor;
+import com.cyberspeed.utils.impl.JsonConvertorImpl;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -8,6 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -19,10 +22,8 @@ public class ScratchConfigurationTest {
 
     @BeforeEach
     public void beforeEach() throws IOException {
-        ObjectMapper objectMapper = JsonMapper.builder()
-                .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
-                .build();
-        configuration = objectMapper.readValue(getClass().getClassLoader().getResource("config.json"), ScratchConfiguration.class);
+        JsonConvertor jsonConvertor = new JsonConvertorImpl();
+        configuration = jsonConvertor.readValue(new File("config.json"), ScratchConfiguration.class);
     }
 
     @Test
