@@ -11,17 +11,12 @@ import java.util.Map;
 public class RewardAnalyserStrategyHolder {
 
     private static volatile RewardAnalyserStrategyHolder instance = null;
+    private static final RewardAnalyserStrategy emptyRewardCalculator = new EmptyRewardAnalyser();
     private final Map<CombinationWhenType, RewardAnalyserStrategy> strategies;
-    private final RewardAnalyserStrategy emptyRewardCalculator = new EmptyRewardAnalyser();
 
     private RewardAnalyserStrategyHolder() {
         this.strategies = new HashMap<>();
         init();
-    }
-
-    private void init() {
-        strategies.put(CombinationWhenType.SAME_SYMBOLS, new SameSymbolsRewardAnalyser());
-        strategies.put(CombinationWhenType.LINEAR_SYMBOLS, new LinearRewardAnalyser());
     }
 
     public static RewardAnalyserStrategyHolder getInstance() {
@@ -35,6 +30,10 @@ public class RewardAnalyserStrategyHolder {
         return instance;
     }
 
+    private void init() {
+        strategies.put(CombinationWhenType.SAME_SYMBOLS, new SameSymbolsRewardAnalyser());
+        strategies.put(CombinationWhenType.LINEAR_SYMBOLS, new LinearRewardAnalyser());
+    }
 
     public RewardAnalyserStrategy get(CombinationWhenType type) {
         return strategies.getOrDefault(type, emptyRewardCalculator);

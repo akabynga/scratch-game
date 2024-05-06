@@ -9,4 +9,10 @@ public record Symbol(
         SymbolImpactType impact,
         double extra
 ) {
+    public static final Symbol EMPTY = new Symbol(
+            1,
+            SymbolType.BONUS,
+            SymbolImpactType.MISS,
+            0);
+
 }

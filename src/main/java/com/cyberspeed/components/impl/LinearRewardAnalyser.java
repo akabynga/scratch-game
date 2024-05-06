@@ -24,16 +24,16 @@ public class LinearRewardAnalyser extends RewardAnalyserStrategy {
                         ));
 
         Set<String> checkedSymbols = new HashSet<>();
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
 
-                if (checkedSymbols.contains(board[i][j])) {
+        for (String[] symbols : board) {
+            for (String symbol : symbols) {
+                if (checkedSymbols.contains(symbol)) {
                     continue;
                 }
-                checkedSymbols.add(board[i][j]);
-                List<String> winningCombinations = getWinningCombinationsForSymbol(board[i][j], board, i, j, coveredAreasMap);
+                checkedSymbols.add(symbol);
+                List<String> winningCombinations = getWinningCombinationsForSymbol(symbol, board, coveredAreasMap);
                 if (!winningCombinations.isEmpty()) {
-                    result.computeIfAbsent(board[i][j], k -> new ArrayList<>()).addAll(winningCombinations);
+                    result.computeIfAbsent(symbol, k -> new ArrayList<>()).addAll(winningCombinations);
                 }
             }
         }
@@ -46,7 +46,7 @@ public class LinearRewardAnalyser extends RewardAnalyserStrategy {
         return CombinationWhenType.LINEAR_SYMBOLS;
     }
 
-    private List<String> getWinningCombinationsForSymbol(String symbol, String[][] board, int x, int y, Map<String, List<List<Coordinates>>> coveredAreasMap) {
+    private List<String> getWinningCombinationsForSymbol(String symbol, String[][] board, Map<String, List<List<Coordinates>>> coveredAreasMap) {
         return coveredAreasMap.entrySet()
                 .stream()
                 .filter(entry -> entry.getValue().stream()

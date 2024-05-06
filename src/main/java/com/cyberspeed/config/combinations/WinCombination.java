@@ -11,4 +11,10 @@ public record WinCombination(
         @JsonProperty("covered_areas")
         String[][] coveredAreas
 ) {
+    public static final WinCombination EMPTY = new WinCombination(
+            1,
+            CombinationWhenType.SAME_SYMBOLS,
+            0,
+            CombinationGroupType.SAME_SYMBOLS,
+            null);
 }

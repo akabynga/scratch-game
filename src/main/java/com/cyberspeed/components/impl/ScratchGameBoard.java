@@ -14,17 +14,12 @@ public class ScratchGameBoard implements GameBoard<ScratchGameResult> {
 
     public ScratchGameBoard(ScratchConfiguration config) {
         this.distributionStrategy = new SingleBonusDistribution(config.columns(), config.rows(), config.probabilities());
-//        this.distributionStrategy = new MultipleBonusDistribution(config.columns(), config.rows(), config.probabilities());
-        this.rewardCalculator = new ScratchRewardCalculator(config.winCombination());
+        this.rewardCalculator = new ScratchRewardCalculator(config);
     }
 
     @Override
     public ScratchGameResult bet(double bettingAmount) {
         return rewardCalculator.calculate(distributionStrategy.generateBoard(), bettingAmount);
-    }
-
-    public DistributionStrategy getDistributionStrategy() {
-        return distributionStrategy;
     }
 
     public void setDistributionStrategy(DistributionStrategy distributionStrategy) {
