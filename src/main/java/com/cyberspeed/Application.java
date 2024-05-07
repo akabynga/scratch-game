@@ -10,7 +10,23 @@ import com.cyberspeed.utils.JsonConvertor;
 import com.cyberspeed.utils.impl.JsonConvertorImpl;
 
 public class Application {
-
+    /**
+     * MyGame - A Simple Betting Game
+     * <p>
+     * This program simulates a simple betting game where players can place bets and win rewards.
+     * The game accepts command-line arguments for configuration and betting amount.
+     * <p>
+     * Usage:
+     * java MyGame --config config.json --betting-amount 100
+     * <p>
+     * Arguments:
+     * --config <file>       Path to the configuration file (in JSON format).
+     * --betting-amount <n>  Betting amount (positive integer).
+     * <p>
+     * Configuration File (config.json):
+     * The configuration file should contain game-specific settings, such as reward multipliers,
+     * winning conditions, and other relevant parameters.
+     */
     public static void main(String[] args) {
 
         try {
