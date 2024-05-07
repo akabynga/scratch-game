@@ -11,13 +11,13 @@ import com.cyberspeed.utils.impl.JsonConvertorImpl;
 
 public class Application {
     /**
-     * MyGame - A Simple Betting Game
+     * Scratch game - A Simple Betting Game
      * <p>
      * This program simulates a simple betting game where players can place bets and win rewards.
      * The game accepts command-line arguments for configuration and betting amount.
      * <p>
      * Usage:
-     * java MyGame --config config.json --betting-amount 100
+     * java -jar scratch-game.jar --config config.json --betting-amount 100
      * <p>
      * Arguments:
      * --config <file>       Path to the configuration file (in JSON format).
