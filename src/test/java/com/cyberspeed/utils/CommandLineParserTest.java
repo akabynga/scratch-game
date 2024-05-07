@@ -2,6 +2,8 @@ package com.cyberspeed.utils;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CommandLineParserTest {
@@ -9,18 +11,18 @@ public class CommandLineParserTest {
 
     @Test
     void testCommandLineArgumentsParsing() {
-        String[] args = {"--config", "config.json", "--betting-amount", "100"};
+        String[] args = {"--config", "config.json", "--betting-amount", "100.0"};
         InputParameters params = CommandLineParser.parse(args);
         assertNotNull(params);
         assertNotNull(params.config());
         assertTrue(params.config().exists());
-        assertEquals(100.0, params.bettingAmount());
+        assertEquals(new BigDecimal("100.0"), params.bettingAmount());
     }
 
     @Test
     void initWithUnidentifiedArgumentShouldThrowCommandLineParserException() {
 
-        String[] args = {"--config", "config.json", "--betting-amount", "100", "not valid param"};
+        String[] args = {"--config", "config.json", "--betting-amount", "100.0", "not valid param"};
 
         CommandLineParserException thrown = assertThrows(
                 CommandLineParserException.class,
@@ -48,7 +50,7 @@ public class CommandLineParserTest {
     @Test
     void initWithWrongConfigPathShouldThrowCommandLineParserException() {
 
-        String[] args = {"--config", "wrong/dir/config.json", "--betting-amount", "not double"};
+        String[] args = {"--config", "wrong/dir/config.json", "--betting-amount", "not big decimal"};
 
         CommandLineParserException thrown = assertThrows(
                 CommandLineParserException.class,

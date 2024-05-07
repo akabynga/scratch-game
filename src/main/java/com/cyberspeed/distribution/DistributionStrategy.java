@@ -1,18 +1,10 @@
 package com.cyberspeed.distribution;
 
 import com.cyberspeed.config.probabilities.BoardProbabilities;
-import com.cyberspeed.distribution.impl.SingleBonusDistribution;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Random;
 
-/**
- * This class is abstraction for strategy which is responsible for symbols distribution.
- * Based on requirements:
- * - Note (2): Bonus symbol can be generated randomly in any cell(s) in the matrix
- * was not really clear that bonus should be generated just in one matrix cell or bonus probability should be added to symbols probabilities
- * I decided to add few strategies, so you can replace it if needed.
- * By default, at most one bonus can be generated in the matrix ({@link SingleBonusDistribution})
- */
 public abstract class DistributionStrategy {
 
     protected final BoardProbabilities probabilities;

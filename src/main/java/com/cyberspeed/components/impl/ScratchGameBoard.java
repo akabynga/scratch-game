@@ -7,6 +7,8 @@ import com.cyberspeed.distribution.DistributionStrategy;
 import com.cyberspeed.distribution.impl.SingleBonusDistribution;
 import com.cyberspeed.entities.ScratchGameResult;
 
+import java.math.BigDecimal;
+
 public class ScratchGameBoard implements GameBoard<ScratchGameResult> {
 
     private final RewardCalculator rewardCalculator;
@@ -18,7 +20,7 @@ public class ScratchGameBoard implements GameBoard<ScratchGameResult> {
     }
 
     @Override
-    public ScratchGameResult bet(double bettingAmount) {
+    public ScratchGameResult bet(BigDecimal bettingAmount) {
         return rewardCalculator.calculate(distributionStrategy.generateBoard(), bettingAmount);
     }
 

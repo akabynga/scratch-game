@@ -9,6 +9,7 @@ import com.cyberspeed.config.symbols.Symbol;
 import com.cyberspeed.config.symbols.SymbolType;
 import com.cyberspeed.entities.ScratchGameResult;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class ScratchRewardCalculator implements RewardCalculator {
@@ -20,7 +21,7 @@ public class ScratchRewardCalculator implements RewardCalculator {
     }
 
     @Override
-    public ScratchGameResult calculate(String[][] board, double bettingAmount) {
+    public ScratchGameResult calculate(String[][] board, BigDecimal bettingAmount) {
 
         Map<String, List<String>> appliedWinningCombinations = new HashMap<>();
         for (CombinationWhenType strategy : CombinationWhenType.values()) {
@@ -36,7 +37,7 @@ public class ScratchRewardCalculator implements RewardCalculator {
         }
 
         String appliedBonusSymbol = findBonusSymbol(board);
-        double reward = calculateReward(bettingAmount, appliedWinningCombinations, appliedBonusSymbol);
+        BigDecimal reward = calculateReward(bettingAmount, appliedWinningCombinations, appliedBonusSymbol);
 
         return new ScratchGameResult(board, reward, appliedWinningCombinations, appliedBonusSymbol);
     }
@@ -52,42 +53,42 @@ public class ScratchRewardCalculator implements RewardCalculator {
                 .orElse(null);
     }
 
-    private double calculateReward(double bettingAmount, Map<String, List<String>> appliedWinningCombinations, String appliedBonusSymbol) {
-        double reward = 0;
+    private BigDecimal calculateReward(BigDecimal bettingAmount, Map<String, List<String>> appliedWinningCombinations, String appliedBonusSymbol) {
+        BigDecimal reward = BigDecimal.ZERO;
         for (String symbol : appliedWinningCombinations.keySet()) {
-            double symbolReward = bettingAmount * symbolMultiplier(symbol);
+            BigDecimal symbolReward = bettingAmount.multiply(symbolMultiplier(symbol));
 
             for (String combination : appliedWinningCombinations.get(symbol)) {
-                symbolReward = symbolReward * winCombinationMultiplier(combination);
+                symbolReward = symbolReward.multiply(winCombinationMultiplier(combination));
             }
-            reward += symbolReward;
+            reward = reward.add(symbolReward);
         }
-        if (reward > 0) {
+        if (reward.signum() > 0) {
             reward = applyBonusSymbol(reward, config.symbols().get(appliedBonusSymbol));
         }
         return reward;
     }
 
-    private double applyBonusSymbol(double reward, Symbol symbol) {
+    private BigDecimal applyBonusSymbol(BigDecimal reward, Symbol symbol) {
         if (symbol == null) {
             return reward;
         }
 
         switch (symbol.impact()) {
             case MULTIPLY_REWARD:
-                return reward * symbol.rewardMultiplier();
+                return reward.multiply(symbol.rewardMultiplier());
             case EXTRA_BONUS:
-                return reward + symbol.extra();
+                return reward.add(symbol.extra());
             case MISS: // do nothing
         }
         return reward;
     }
 
-    private double winCombinationMultiplier(String combination) {
+    private BigDecimal winCombinationMultiplier(String combination) {
         return Optional.of(config.winCombination().get(combination)).orElse(WinCombination.EMPTY).rewardMultiplier();
     }
 
-    private double symbolMultiplier(String symbol) {
+    private BigDecimal symbolMultiplier(String symbol) {
         return Optional.of(config.symbols().get(symbol)).orElse(Symbol.EMPTY).rewardMultiplier();
     }
 }

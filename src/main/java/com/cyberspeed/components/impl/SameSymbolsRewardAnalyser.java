@@ -20,13 +20,11 @@ public class SameSymbolsRewardAnalyser extends RewardAnalyserStrategy {
 
         Map<String, List<String>> result = new HashMap<>();
 
-        symbolCounts.forEach((symbol, count) -> {
-            availableWinCombinations.entrySet()
-                    .stream()
-                    .filter(e -> e.getValue().count() <= count && e.getValue().group() == CombinationGroupType.SAME_SYMBOLS)
-                    .max(Comparator.comparingDouble(e -> e.getValue().rewardMultiplier()))
-                    .ifPresent(winCombination -> result.computeIfAbsent(symbol, k -> new ArrayList<>()).add(winCombination.getKey()));
-        });
+        symbolCounts.forEach((symbol, count) -> availableWinCombinations.entrySet()
+                .stream()
+                .filter(e -> e.getValue().count() <= count && e.getValue().group() == CombinationGroupType.SAME_SYMBOLS)
+                .max(Comparator.comparing(e -> e.getValue().rewardMultiplier()))
+                .ifPresent(winCombination -> result.computeIfAbsent(symbol, k -> new ArrayList<>()).add(winCombination.getKey())));
 
         return result;
     }

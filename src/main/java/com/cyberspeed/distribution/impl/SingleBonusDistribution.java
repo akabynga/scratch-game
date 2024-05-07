@@ -18,9 +18,10 @@ public class SingleBonusDistribution extends DistributionStrategy {
 
         for (int i = 0; i < probabilities.standardSymbols().size(); i++) {
             SymbolsProbability symbolsProbability = probabilities.standardSymbols().get(i);
-            board[symbolsProbability.row()][symbolsProbability.column()] = chooseSymbol(bonusCell == i ?
-                    probabilities.bonusSymbols().symbols() :
-                    symbolsProbability.symbols()
+            board[symbolsProbability.row()][symbolsProbability.column()] = chooseSymbol(
+                    bonusCell == i ?
+                            probabilities.bonusSymbols().symbols() :
+                            symbolsProbability.symbols()
             );
         }
         return board;

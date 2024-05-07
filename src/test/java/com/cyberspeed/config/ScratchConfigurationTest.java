@@ -3,9 +3,6 @@ package com.cyberspeed.config;
 import com.cyberspeed.config.symbols.Symbol;
 import com.cyberspeed.utils.JsonConvertor;
 import com.cyberspeed.utils.impl.JsonConvertorImpl;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,19 +29,19 @@ public class ScratchConfigurationTest {
     }
 
     @Test
-    public void parseConfig_testWinCombinationNotNull() {
+    public void parseConfigTestWinCombinationNotNull() {
         Assertions.assertNotNull(configuration.winCombination());
         Assertions.assertFalse(configuration.winCombination().isEmpty());
     }
 
     @Test
-    public void parseConfig_testBoardSize() {
+    public void parseConfigTestBoardSize() {
         Assertions.assertEquals(3, configuration.columns());
         Assertions.assertEquals(3, configuration.rows());
     }
 
     @Test
-    public void parseConfig_testProbabilities() {
+    public void parseConfigTestProbabilities() {
         Assertions.assertNotNull(configuration.probabilities());
         Assertions.assertNotNull(configuration.probabilities().bonusSymbols());
         Assertions.assertNotNull(configuration.probabilities().standardSymbols());
@@ -52,7 +49,7 @@ public class ScratchConfigurationTest {
     }
 
     @Test
-    public void parseConfig_testSymbols() {
+    public void parseConfigTestSymbols() {
         Assertions.assertNotNull(configuration.symbols());
         Assertions.assertFalse(configuration.symbols().isEmpty());
 

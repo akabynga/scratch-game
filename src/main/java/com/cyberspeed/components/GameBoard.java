@@ -1,6 +1,8 @@
 package com.cyberspeed.components;
 
+import java.math.BigDecimal;
+
 public interface GameBoard<R> {
 
-    R bet(double bettingAmount);
+    R bet(BigDecimal bettingAmount);
 }

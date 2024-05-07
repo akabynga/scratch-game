@@ -2,9 +2,11 @@ package com.cyberspeed.config.combinations;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.math.BigDecimal;
+
 public record WinCombination(
         @JsonProperty("reward_multiplier")
-        double rewardMultiplier,
+        BigDecimal rewardMultiplier,
         CombinationWhenType when,
         int count,
         CombinationGroupType group,
@@ -12,7 +14,7 @@ public record WinCombination(
         String[][] coveredAreas
 ) {
     public static final WinCombination EMPTY = new WinCombination(
-            1,
+            BigDecimal.ONE,
             CombinationWhenType.SAME_SYMBOLS,
             0,
             CombinationGroupType.SAME_SYMBOLS,

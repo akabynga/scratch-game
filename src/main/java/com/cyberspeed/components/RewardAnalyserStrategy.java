@@ -23,5 +23,4 @@ public abstract class RewardAnalyserStrategy {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
-
 }

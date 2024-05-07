@@ -9,21 +9,24 @@ import com.cyberspeed.utils.InputParameters;
 import com.cyberspeed.utils.JsonConvertor;
 import com.cyberspeed.utils.impl.JsonConvertorImpl;
 
-import java.io.IOException;
-
 public class Application {
-    public static void main(String[] args) throws IOException {
 
-        JsonConvertor jsonConvertor = new JsonConvertorImpl();
-        //TODO remove after testing
-        String[] arguments = {"--config", "config.json", "--betting-amount", "100"};
+//    public static final String[] DEFAULT_ARGUMENTS = {"--config", "config.json", "--betting-amount", "100"};
 
-        InputParameters params = CommandLineParser.parse(arguments);
-        ScratchConfiguration configuration = jsonConvertor.readValue(params.config(), ScratchConfiguration.class);
+    public static void main(String[] args) {
 
-        GameBoard<ScratchGameResult> board = new ScratchGameBoard(configuration);
-        ScratchGameResult result = board.bet(params.bettingAmount());
+        try {
+            JsonConvertor jsonConvertor = new JsonConvertorImpl();
 
-        jsonConvertor.writeValue(System.out, result);
+            InputParameters params = CommandLineParser.parse(args);
+            ScratchConfiguration configuration = jsonConvertor.readValue(params.config(), ScratchConfiguration.class);
+
+            GameBoard<ScratchGameResult> board = new ScratchGameBoard(configuration);
+            ScratchGameResult result = board.bet(params.bettingAmount());
+
+            jsonConvertor.writeValue(System.out, result);
+        } catch (Exception e) {
+            System.out.printf("Sorry, but something goes wrong: %s \n", e.getMessage());
+        }
     }
 }

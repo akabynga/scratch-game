@@ -1,6 +1,7 @@
 package com.cyberspeed.utils;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 public class CommandLineParser {
@@ -10,7 +11,7 @@ public class CommandLineParser {
         verifyRequiredArguments(args);
 
         File config = null;
-        double bettingAmount = 0.0;
+        BigDecimal bettingAmount = new BigDecimal(0);
         try {
             for (int i = 0; i < args.length; i += 2) {
                 String arg = args[i];
@@ -23,7 +24,7 @@ public class CommandLineParser {
                         break;
                     case "--betting-amount":
                         try {
-                            bettingAmount = Double.parseDouble(args[i + 1]);
+                            bettingAmount = new BigDecimal(args[i + 1]);
                         } catch (NumberFormatException e) {
                             throw new CommandLineParserException(String.format("Unable to parse betting amount: %s", args[i + 1]), e);
                         }
