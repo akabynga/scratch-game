@@ -10,7 +10,6 @@ import java.util.Map;
 
 public class EmptyRewardAnalyser extends RewardAnalyserStrategy {
 
-
     @Override
     public Map<String, List<String>> analyseBoard(String[][] board, Map<String, WinCombination> availableWinCombinations) {
         return Collections.emptyMap();

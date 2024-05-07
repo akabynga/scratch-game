@@ -11,8 +11,6 @@ import com.cyberspeed.utils.impl.JsonConvertorImpl;
 
 public class Application {
 
-//    public static final String[] DEFAULT_ARGUMENTS = {"--config", "config.json", "--betting-amount", "100"};
-
     public static void main(String[] args) {
 
         try {
